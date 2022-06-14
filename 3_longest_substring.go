@@ -5,27 +5,26 @@ import (
 )
 
 func lengthOfLongestSubstring(s string) int {
-	substrings := []string{}
-	for i := 0; i < len(s); i++ {
+	longestSubstring := ""
+	inputLength := len(s)
+
+	for i := 0; i < inputLength; i++ {
 		substring := string(s[i])
 		nextCharIndex := i + 1
 
-		for nextCharIndex < len(s) {
-			if string(s[i]) == string(s[nextCharIndex]) || strings.Contains(substring, string(s[nextCharIndex])) {
+		for nextCharIndex < inputLength {
+			nextChar := string(s[nextCharIndex])
+			if string(s[i]) == nextChar || strings.Contains(substring, nextChar) {
 				break
 			}
 
-			substring = substring + string(s[nextCharIndex])
+			substring = substring + nextChar
 			nextCharIndex++
 		}
-		substrings = append(substrings, substring)
-	}
-
-	longestSubstring := 0
-	for _, v := range substrings {
-		if len(v) > longestSubstring {
-			longestSubstring = len(v)
+		if len(substring) > len(longestSubstring) {
+			longestSubstring = substring
 		}
 	}
-	return longestSubstring
+
+	return len(longestSubstring)
 }
